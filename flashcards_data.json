@@ -1,0 +1,1280 @@
+[
+  {
+    "id": 0,
+    "question": "What 4 documents must you bring to every flight?",
+    "answer_text": "Student Pilot Certificate, Gov. Issued Document with Photo, Medical Certificate and Logbook with endorsements",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.354979",
+    "history": [
+      {
+        "date": "2026-04-14T13:58:37.101100",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "question": "Does a student pilot certificate expire?",
+    "answer_text": "No",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.354979",
+    "history": [
+      {
+        "date": "2026-04-14T13:58:45.952393",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "question": "Medical certificate classes and privileges",
+    "answer_text": "1st: ATP, 2nd: Commercial, 3rd: PPL / Instructor",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.354979",
+    "history": [
+      {
+        "date": "2026-04-14T14:04:57.570288",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "question": "Medical duration under 40",
+    "answer_text": "1st class: 12 calendar months, 2nd class: 12 calendar months, 3rd class: 60 calendar months",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.354979",
+    "history": [
+      {
+        "date": "2026-04-14T14:05:29.614559",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "question": "Medical duration over 40",
+    "answer_text": "1st class: 6 calendar months, 2nd class: 12 calendar months, 3rd class: 24 calendar months",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.354979",
+    "history": [
+      {
+        "date": "2026-04-14T14:07:17.748524",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "question": "Student pilot solo privileges and limitations",
+    "answer_text": "A student solo may go solo. May not carry passengers, carry anything for compensation or for hire. Must stay within 25nm of airport. May go to another airport only with additional endorsements. No touch & go’s. Must consult instructor prior to going solo.",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 1,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.354979",
+    "history": [
+      {
+        "date": "2026-04-14T14:08:18.487017",
+        "result": "wrong"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "question": "How long is a solo endorsement valid?",
+    "answer_text": "90 days",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.354979",
+    "history": [
+      {
+        "date": "2026-04-14T14:08:48.567768",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "question": "FARs covering student pilot solo",
+    "answer_text": "61.87 & 61.89",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.354979",
+    "history": [
+      {
+        "date": "2026-04-14T14:10:16.112475",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "question": "Do you have any way of determining you are well enough to fly today?",
+    "answer_text": "IMSAFE Illness, Medication, Stress, Alcohol, Fatigue, Emotion",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.354979",
+    "history": [
+      {
+        "date": "2026-04-14T14:14:49.213038",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "question": "Illness that commonly affects pilots",
+    "answer_text": "Sinus infection",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.354979",
+    "history": [
+      {
+        "date": "2026-04-14T14:14:56.286474",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "question": "How do medications affect flying?",
+    "answer_text": "All affect performance; check FAA/AME guidance",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 1,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.354979",
+    "history": [
+      {
+        "date": "2026-04-14T14:16:03.865146",
+        "result": "wrong"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "question": "Alcohol rules (91.17)",
+    "answer_text": "8 hrs bottle-to-throttle, BAC < 0.04, no lingering effects",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.355979",
+    "history": [
+      {
+        "date": "2026-04-14T14:16:18.692311",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "question": "What is a METAR?",
+    "answer_text": "Actual weather observation",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.355979",
+    "history": [
+      {
+        "date": "2026-04-14T14:17:02.785015",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "question": "METAR update frequency",
+    "answer_text": "Hourly or when significant weather change",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.355979",
+    "history": [
+      {
+        "date": "2026-04-14T14:17:13.421452",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "question": "What is a TAF?",
+    "answer_text": "Weather forecast",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.355979",
+    "history": [
+      {
+        "date": "2026-04-14T14:17:30.388912",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "question": "TAF validity",
+    "answer_text": "24 hours in 6-hour increments",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.355979",
+    "history": [
+      {
+        "date": "2026-04-14T14:17:42.360238",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "question": "What weather do you need to have to go solo?",
+    "answer_text": "1,000’ ceiling, 3 SM visibility VFR day and 5 SM for VFR night",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 1,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.355979",
+    "history": [
+      {
+        "date": "2026-04-14T14:18:09.198812",
+        "result": "wrong"
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "question": "What are the basic VFR weather minimums?",
+    "answer_text": "[Image: VFR Airspace Weather Minimums Triangle]",
+    "answer_image": "flashcard_images\\20260414_142118_7q82aq5huwx81.jpg",
+    "total_correct": 0,
+    "total_wrong": 1,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.355979",
+    "history": [
+      {
+        "date": "2026-04-14T14:22:55.742913",
+        "result": "wrong"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "question": "Describe how to determine if the aircraft is airworthy",
+    "answer_text": "Inspection: AV1ATES, Equipment: VFR Day – ATOMATOFLAMES, VFR Night - +FLAPS, Documents: SPARROW",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 1,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.355979",
+    "history": [
+      {
+        "date": "2026-04-14T14:23:17.030307",
+        "result": "wrong"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "question": "SPARROW stands for",
+    "answer_text": "It refers to the mandatory documents for a flight: Supplement avionics, Placards, Airworthiness Certificate, Registration, Radio operator license, Operating Limitations, Weight and Balance",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.355979",
+    "history": [
+      {
+        "date": "2026-04-14T14:24:31.456556",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "question": "AV1ATES stands for",
+    "answer_text": "Annual inspection, VOR check, 100 hours inspection (commercial purposes), Airworthiness directives, Transponder check, ELT, Static/Altimeter/Pitot",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.355979",
+    "history": [
+      {
+        "date": "2026-04-14T14:28:39.465167",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "question": "Annual inspection interval",
+    "answer_text": "12 calendar months",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.355979",
+    "history": [
+      {
+        "date": "2026-04-14T14:28:49.855409",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "question": "VOR check interval",
+    "answer_text": "30 days",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.355979",
+    "history": [
+      {
+        "date": "2026-04-14T14:28:53.425512",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "question": "Transponder inspection",
+    "answer_text": "24 calendar months",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 1,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.355979",
+    "history": [
+      {
+        "date": "2026-04-14T14:29:15.161612",
+        "result": "wrong"
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "question": "Static system & Altimeter inspection",
+    "answer_text": "24 calendar months",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 1,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.355979",
+    "history": [
+      {
+        "date": "2026-04-14T14:29:22.546413",
+        "result": "wrong"
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "question": "ELT inspection",
+    "answer_text": "12 calendar months",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.355979",
+    "history": [
+      {
+        "date": "2026-04-14T14:29:26.152162",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "question": "ELT Battery",
+    "answer_text": "50% of useful life or 1 hour after cumulative use",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.355979",
+    "history": [
+      {
+        "date": "2026-04-14T14:29:42.543988",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "question": "Can an annual count as a 100-hour?",
+    "answer_text": "Yes",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.356978",
+    "history": [
+      {
+        "date": "2026-04-14T14:33:47.814771",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "question": "Can a 100-hour count as an annual?",
+    "answer_text": "No",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 1,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.356978",
+    "history": [
+      {
+        "date": "2026-04-14T14:34:41.867816",
+        "result": "wrong"
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "question": "What ATOMATOFLAMES is and what does it stand for?",
+    "answer_text": "",
+    "answer_image": "flashcard_images\\20260414_140202_Gemini_Generated_Image_o534c8o534c8o534.png",
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.356978",
+    "history": [
+      {
+        "date": "2026-04-14T14:31:51.502882",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "question": "What FLAPS is and what does it stand for?",
+    "answer_text": "[Image: FLAPS required equipment mnemonic]",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 0,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.356978",
+    "history": []
+  },
+  {
+    "id": 31,
+    "question": "Aircraft registration duration",
+    "answer_text": "Federal: 36 months, State: 24 months",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.356978",
+    "history": [
+      {
+        "date": "2026-04-14T14:49:13.199191",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "question": "Is a generic POH acceptable?",
+    "answer_text": "No. It must be aircraft-specific",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.356978",
+    "history": [
+      {
+        "date": "2026-04-14T14:49:19.199196",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "question": "Forward CG characteristics",
+    "answer_text": "Harder takeoff and landing, worse cruise, easier stall recovery",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.356978",
+    "history": [
+      {
+        "date": "2026-04-14T14:49:51.597952",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "question": "Aft CG characteristics",
+    "answer_text": "Easier takeoff and landing, better cruise, worse stall recovery",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.356978",
+    "history": [
+      {
+        "date": "2026-04-14T14:50:09.092053",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "question": "Inoperative equipment regulation flow",
+    "answer_text": "[Image: Inoperative equipment regulation flowchart]",
+    "answer_image": "flashcard_images\\20260414_145735_8.A Inoperative Equipment Flow Chart.png",
+    "total_correct": 0,
+    "total_wrong": 1,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.356978",
+    "history": [
+      {
+        "date": "2026-04-14T15:05:39.399197",
+        "result": "wrong"
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "question": "What must be done with inoperative equipment?",
+    "answer_text": "Remove/deactivate & label INOP",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.356978",
+    "history": [
+      {
+        "date": "2026-04-14T15:05:48.047692",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "question": "Takeoff performance determined from",
+    "answer_text": "POH takeoff & landing charts",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.356978",
+    "history": [
+      {
+        "date": "2026-04-14T15:06:03.107782",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "question": "Crosswind limitations found in",
+    "answer_text": "POH: 15 knots",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.356978",
+    "history": [
+      {
+        "date": "2026-04-14T15:06:09.728824",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "question": "Regulation for minimum safe altitudes",
+    "answer_text": "Anywhere – An altitude allowing, if a power unit fails, an emergency landing without hazard to any person or property.\nOver congested areas – 1000 feet above highest obstacle within 2000 feet radius.\nOther congested areas – 500 feet above surface. If over sparsely populated area or water, 500 feet above any person, vessel, vehicle or structure.",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 1,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.356978",
+    "history": [
+      {
+        "date": "2026-04-14T15:18:53.995391",
+        "result": "wrong"
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "question": "Regulation for right-of-way rules",
+    "answer_text": "General Priority: Aircraft in Distress and Towing or Refueling have right-of-way over all other engine-driven aircraft.\nConverging and Categories: Balloons > Gliders > Airships > Powered Parachutes / Weight-Shift-Control / Airplanes / Rotorcraft. If same category, aircraft to the other's right has the right-of-way.\nSpecific Maneuvers - Approaching Head-On: Both to the right. Overtaking: The aircraft being overtaken has the right-of-way. The overtaking pilot must alter course to the right. Landing: Aircraft on final approach or in the act of landing have the right-of-way. When two or more aircraft are approaching to land, the lower altitude aircraft has the right-of-way.",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.356978",
+    "history": [
+      {
+        "date": "2026-04-14T15:22:57.311871",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "question": "Four forces of flight",
+    "answer_text": "Lift, Weight, Thrust, Drag",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.356978",
+    "history": [
+      {
+        "date": "2026-04-14T15:23:09.732466",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "question": "How is Lift produced?",
+    "answer_text": "Lift is produced by Bernoulli principle & Newton’s 3rd law",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.356978",
+    "history": [
+      {
+        "date": "2026-04-14T15:23:58.437752",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "question": "How does a pilot control lift?",
+    "answer_text": "Change AOA (pitch), airspeed or flaps (technicaly also AOA)",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.356978",
+    "history": [
+      {
+        "date": "2026-04-14T15:24:48.367853",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "question": "What causes a stall?",
+    "answer_text": "Exceeding critical angle of attack",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 1,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.356978",
+    "history": [
+      {
+        "date": "2026-04-14T15:25:15.023982",
+        "result": "wrong"
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "question": "What causes a spin?",
+    "answer_text": "Uncoordinated aggravated stall resulting in a yawing, rolling, & pitching motion",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.356978",
+    "history": [
+      {
+        "date": "2026-04-14T15:26:05.401799",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "question": "How to recover from spin?",
+    "answer_text": "PARE: Power Idle, Ailerons neutral, Rudder opposite to the direction of spin, Elevator forward",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.356978",
+    "history": [
+      {
+        "date": "2026-04-14T15:26:33.622242",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "question": "V-Speeds",
+    "answer_text": "VS0 (Stall speed in landing configuration): 49 MPH (43 KTS)\nVS1 (Stall speed in clean configuration): 57 MPH (50 KTS)\nVR (Rotation speed): 60 MPH (52 KTS)\nVX (Best angle of climb): 65 MPH (56 KTS)\nVY (Best rate of climb): 85 MPH (74 KTS)\nVG (Best glide speed): 80 MPH (70 KTS)\nVFE (Maximum flap extended speed): 100 MPH (87 KTS)\nVA (Maneuvering speed at 2,300 lbs): 112 MPH (97 KTS)\nVNO (Maximum structural cruising speed): 145 MPH (126 KTS)\nVNE (Never exceed speed): 182 MPH (158 KTS)",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 1,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.356978",
+    "history": [
+      {
+        "date": "2026-04-14T15:47:15.159635",
+        "result": "wrong"
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "question": "High-voltage warning light/Ammeter discharge indicates",
+    "answer_text": "Loss of alternator output, Malfunction of an Alternator, Belt broke, Switch on, CB popped, Faulty indication (bad light), RPM",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": [
+      {
+        "date": "2026-04-14T15:48:09.346473",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "question": "Brake system type",
+    "answer_text": "Hydraulic. Fluid color Red / pink",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": [
+      {
+        "date": "2026-04-14T15:48:18.153780",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "question": "Vacuum system powers which instruments?",
+    "answer_text": "Attitude Indicator & Heading Indicator",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": [
+      {
+        "date": "2026-04-14T15:48:39.460501",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "question": "Turn coordinator power source",
+    "answer_text": "Electrically driven",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": [
+      {
+        "date": "2026-04-14T15:48:46.500159",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "question": "Airspeed indicator test",
+    "answer_text": "'Airspeed alive' while rolling on takeoff",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": [
+      {
+        "date": "2026-04-14T15:48:59.423081",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 53,
+    "question": "Airspeed indicator works by",
+    "answer_text": "Diaphragm compares the ram air against static pressure",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": [
+      {
+        "date": "2026-04-14T15:49:19.947660",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 54,
+    "question": "Altimeter works by",
+    "answer_text": "Aneroid wafer expands or contracts against static pressure",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 1,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": [
+      {
+        "date": "2026-04-14T15:49:49.129264",
+        "result": "wrong"
+      }
+    ]
+  },
+  {
+    "id": 55,
+    "question": "VSI works by",
+    "answer_text": "Calibrated leak to equalize after leveling off",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": [
+      {
+        "date": "2026-04-14T15:50:02.789322",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "question": "Fuel type",
+    "answer_text": "100LL",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": [
+      {
+        "date": "2026-04-14T15:50:09.591912",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "question": "You’re in the practice area and your engine starts running rough, what could be the cause?",
+    "answer_text": "Engine needs 3 things to function: magnetos, air, fuel. Magnetos: make sure keys are on 'both'. Air: Turn on carb heat (also alternate source of air for the engine). Fuel: Mixture rich & fuel selector set to both.",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": [
+      {
+        "date": "2026-04-14T15:51:19.871388",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 58,
+    "question": "C172 engine description",
+    "answer_text": "LHAND: Lycoming, Horizontally opposed, Air-cooled, Normally aspirated, Direct drive. 150 HP at 2700 RPM",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": [
+      {
+        "date": "2026-04-14T15:51:51.556719",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 59,
+    "question": "Engine configuration",
+    "answer_text": "4 cylinders, 2 spark plugs each",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": [
+      {
+        "date": "2026-04-14T15:52:01.546071",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "question": "What preflight action is required of a pilot prior to a flight?",
+    "answer_text": "NWKRAFT: Notams available, Weather, Known ATC delays, Runway lengths available, Alternates, Fuel requirements and reserves, Take off and landing distance required, Obtain all information applicable to that flight",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 1,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": [
+      {
+        "date": "2026-04-14T15:55:49.915135",
+        "result": "wrong"
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "question": "What endorsements are required for solo flight? What three documents must you have in your possession to solo an aircraft as a student?",
+    "answer_text": "Logbook with endorsements: Pre-solo knowledge test 61.87(b), Make and Model proficiency 61.87(c), 90 days currency 61.87(n). Documents in possession: Student pilot license, Medical exam, Gov issued doc with photo, Logbook with endorsements",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": [
+      {
+        "date": "2026-04-14T15:56:53.281813",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 62,
+    "question": "What type of medical do you need? How long is it valid?",
+    "answer_text": "At least class 3, valid for 60 calendar months",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": [
+      {
+        "date": "2026-04-14T15:57:02.409046",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 63,
+    "question": "What are the 4 turning tendencies?",
+    "answer_text": "Gyroscopic precession: Spinning propeller creates gyroscopic effect. Any force that deflects its plane of rotation, results in a force manifested 90° in the direction of rotation. P-Factor: downward blade on the left has a higher aoa, thus generating more lift pushing aircraft to this side. Spiraling slipstream: wind stream hitting the vertical stabilizer on the left-hand side. Torque: based on Newton’s Third Law, as the engine and propeller revolve clockwise (from the pilot's view), an equal force tries to rotate the aircraft in the opposite direction, creating a roll to the left.",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": [
+      {
+        "date": "2026-04-14T16:00:18.008701",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 64,
+    "question": "Traffic Pattern Legs",
+    "answer_text": "Departure: Flight path starting at takeoff, continuing straight ahead until at least 1/2 mile beyond the runway end. Upwind: An extension of the departure leg along the extended centerline. Crosswind: Flight path at a right angle to the runway off its takeoff end. Downwind: A path parallel to the runway in the direction opposite to landing. Base: A path at a right angle to the landing runway off its approach end. Final: The final flight path aligned with the runway centerline extending to the touchdown point.",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": [
+      {
+        "date": "2026-04-14T16:01:56.390056",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 65,
+    "question": "Radio Calls (Nontowered/CTAF)",
+    "answer_text": "Outbound: Before taxiing and before taxiing on the runway for departure. Last call when leaving pattern. Inbound: 10 miles out: State identification, altitude, and intentions (e.g., 'landing'). Entering the pattern: Call when joining the downwind. Pattern legs: Call when on base and final. Exiting: Call when clear of the runway.",
+    "answer_image": null,
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": [
+      {
+        "date": "2026-04-14T16:03:47.750614",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "question": "What is the procedure for a Go-around?",
+    "answer_text": "4 C’s. Cram: throttle + carb heat in. Climb: Vx or Vy as appropriate (500’). Clean: remove flaps after positive rate of climb. Communicate: going around.",
+    "answer_image": "flashcard_images\\20260414_152843_9.C Go Around Procedure.png",
+    "total_correct": 1,
+    "total_wrong": 0,
+    "consecutive_correct": 1,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": [
+      {
+        "date": "2026-04-14T16:22:32.356032",
+        "result": "correct"
+      }
+    ]
+  },
+  {
+    "id": 67,
+    "question": "What is the procedure for steep turns?",
+    "answer_text": "4C’s and E. Start at a cardinal heading if possible, At VA or below (100 MPH), Power to maintain altitude (Carb heat and trim if needed), Step into the turn with left rudder with 30* bank, Add power (200 RPM, carb heat off if needed), Nose up trim (2 full swipes), Bank to 45*, Complete 360* (Increase/decrease backpressure for altitude), Roll out 15* beforehand, Keep configuration, remove rudder and apply forward pressure, Step into the right turn with right rudder, Bank to 45*, Add trim (1/2 swipe), Roll out 15* beforehand.",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 0,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": []
+  },
+  {
+    "id": 68,
+    "question": "How to recover from steep turn?",
+    "answer_text": "Remove right rudder, Forward pressure to maintain altitude, Back to cruise setting (remove carb heat if on)",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 0,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": []
+  },
+  {
+    "id": 69,
+    "question": "The definition of careless or reckless operation.",
+    "answer_text": "FAR 91.13: Aircraft operation other than for the purpose of air navigation. So as to endanger the life or property of another.",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 0,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": []
+  },
+  {
+    "id": 70,
+    "question": "What is the authority and responsibility of the pilot in command?",
+    "answer_text": "FAR 91.3: The pilot in command of an aircraft is directly responsible for, and final authority as to the operation of the aircraft. In an in-flight emergency, may deviate from any rule to meet that emergency. If deviation happens, upon the request of the administrator, send a written report of that deviation.",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 0,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": []
+  },
+  {
+    "id": 71,
+    "question": "What would happen to the altimeter if the static port is blocked?",
+    "answer_text": "It freezes the altimeter at the altitude where it became blocked",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 0,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": []
+  },
+  {
+    "id": 72,
+    "question": "What would happen to the VSI if the static port is blocked?",
+    "answer_text": "Vertical speed indicator (VSI) remains at zero",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 0,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": []
+  },
+  {
+    "id": 73,
+    "question": "What would happen to the airspeed indicator if the static port is blocked?",
+    "answer_text": "Provide inaccurate readings: Climb – much slower, Descent – much faster",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 0,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": []
+  },
+  {
+    "id": 74,
+    "question": "How to handle a problem with the static port?",
+    "answer_text": "Alternative static port. Due to lower pressure in the cabin, consider: Altitude: +50’, VSI: Momentary climb, Airspeed: +11 Knots",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 0,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": []
+  },
+  {
+    "id": 75,
+    "question": "What is the procedure if you are lost?",
+    "answer_text": "5 C’s: Climb, Circle, Confess, Comply, Conserve",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 0,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": []
+  },
+  {
+    "id": 76,
+    "question": "What are the types of fog?",
+    "answer_text": "PRAFUS. Precipitation: warmer rain falls through cool air. Radiation: Forms on clear, calm nights as the ground cools the surrounding air. Advection: Coastal area, occurs when warm, moist air moves over a cold surface. Freezing: -25 °F or colder. When water vapor forms directly into ice crystals instead of droplets. Upslope: Results from moist, stable air being forced up sloping terrain. Steam: Forms when cold, dry air moves over warm water.",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 0,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": []
+  },
+  {
+    "id": 77,
+    "question": "What are the types of ice?",
+    "answer_text": "Rime: Rough, milky, and opaque; formed by instantaneous freezing of small, supercooled droplets. Clear: Glossy and translucent; formed by slow freezing of large, supercooled droplets. Mixed: A combination of rime and clear ice. Frost: Ice crystals formed by sublimation when both the temperature and dew point are below freezing.",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 0,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": []
+  },
+  {
+    "id": 78,
+    "question": "What are the types of hypoxias?",
+    "answer_text": "Air (Hypoxic): Insufficient oxygen in the lungs, typically caused by the reduced partial pressure of oxygen at high altitudes. Blood (Hypemic): The blood's inability to carry or transport oxygen, often due to carbon monoxide (CO) poisoning, anemia, or recent blood donation. Circulation (Stagnant): Oxygen-rich blood is not moving to the tissues that need it, caused by heart failure, shock, or excessive G-forces. Drugs (Histotoxic): Cells are unable to effectively use the oxygen delivered to them because they have been poisoned by toxins like alcohol or narcotics. Warning Signs: Look for cyanosis (blue fingernails/lips), euphoria, headache, impaired judgment, and drowsiness.",
+    "answer_image": null,
+    "total_correct": 0,
+    "total_wrong": 0,
+    "consecutive_correct": 0,
+    "archived": false,
+    "created_date": "2026-04-14T13:57:50.357979",
+    "history": []
+  }
+]
