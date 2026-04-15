@@ -205,8 +205,21 @@ def study_mode():
                 st.session_state.show_answer = False
                 st.rerun()
     
-    # Navigation
+
+     # Navigation
     st.markdown("---")
+
+    # Create a dictionary for selection
+    card_options = {f"ID {card['id']}: {card['question'][:50]}...": card['id'] for card in flashcards}
+    
+    selected_card_label = st.selectbox("Jump to question:", list(card_options.keys()))
+    selected_card_id = card_options[selected_card_label]
+
+    if selected_card_id:
+        st.session_state.current_card_index = selected_card_id
+        st.session_state.show_answer = False
+        st.rerun()
+
     col1, col2, col3 = st.columns([1, 2, 1])
     with col1:
         if st.button("⬅️ Previous"):
