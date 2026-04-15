@@ -566,6 +566,25 @@ def main():
     st.sidebar.markdown("### Quick Stats")
     st.sidebar.metric("Active Cards", active_count)
     st.sidebar.metric("Archived Cards", archived_count)
+
+    st.sidebar.markdown("---")
+    
+    # --- NEW BACKUP SECTION START ---
+    st.sidebar.markdown("### Backup Progress")
+    if os.path.exists(FLASHCARDS_JSON):
+        with open(FLASHCARDS_JSON, 'r', encoding='utf-8') as f:
+            json_data = f.read()
+            
+        st.sidebar.download_button(
+            label="💾 Download Backup",
+            data=json_data,
+            file_name=f"flashcards_backup_{datetime.now().strftime('%Y%m%d_%H%M')}.json",
+            mime="application/json",
+            use_container_width=True
+        )
+    else:
+        st.sidebar.info("No save data yet.")
+    # --- NEW BACKUP SECTION END ---
     
     st.sidebar.markdown("---")
     st.sidebar.markdown("### About")
