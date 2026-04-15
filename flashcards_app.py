@@ -19,6 +19,7 @@ if 'initialized' not in st.session_state:
     st.session_state.current_card_index = 0
     st.session_state.show_answer = False
     st.session_state.study_mode = 'active'  # 'active' or 'archived'
+    st.session_state.selected_jump_card = None  # Track selectbox selection
     
 
 def load_flashcards():
@@ -72,10 +73,37 @@ def get_archived_cards(flashcards):
     return [card for card in flashcards if card['archived']]
 
 
-def display_image(image_path):
-    """Display an image from file."""
-    if image_path and os.path.exists(image_path):
-        st.image(image_path, use_container_width=True)
+def encode_image_to_base64(uploaded_file):
+    """Convert uploaded file to base64 string."""
+    if uploaded_file is None:
+        return None
+    
+    # Read the file bytes
+    file_bytes = uploaded_file.getvalue()
+    
+    # Encode to base64
+    encoded = base64.b64encode(file_bytes).decode('utf-8')
+    
+    # Determine image type from file extension
+    file_ext = uploaded_file.name.split('.')[-1].lower()
+    mime_type = f"image/{file_ext}" if file_ext in ['png', 'jpg', 'jpeg', 'gif'] else "image/png"
+    
+    # Return as data URI
+    return f"data:{mime_type};base64,{encoded}"
+
+
+def display_image(image_data):
+    """Display an image from base64 string or file path (for backward compatibility)."""
+    if not image_data:
+        return
+    
+    # Check if it's a base64 data URI
+    if isinstance(image_data, str) and image_data.startswith('data:image'):
+        # Extract base64 part
+        st.image(image_data, use_container_width=True)
+    # Backward compatibility: check if it's a file path
+    elif isinstance(image_data, str) and os.path.exists(image_data):
+        st.image(image_data, use_container_width=True)
 
 
 def study_mode():
@@ -206,31 +234,58 @@ def study_mode():
                 st.rerun()
     
 
-     # Navigation
+    # Navigation
     st.markdown("---")
-
-    # Create a dictionary for selection
-    card_options = {f"ID {card['id']}: {card['question'][:50]}...": card['id'] for card in flashcards}
     
-    selected_card_label = st.selectbox("Jump to question:", list(card_options.keys()))
-    selected_card_id = card_options[selected_card_label]
-
-    if selected_card_id:
-        st.session_state.current_card_index = selected_card_id
-        st.session_state.show_answer = False
-        st.rerun()
-
     col1, col2, col3 = st.columns([1, 2, 1])
     with col1:
         if st.button("⬅️ Previous"):
             st.session_state.current_card_index = (st.session_state.current_card_index - 1) % len(cards)
             st.session_state.show_answer = False
+            st.session_state.selected_jump_card = None  # Clear jump selection
             st.rerun()
     with col3:
         if st.button("Next ➡️"):
             st.session_state.current_card_index = (st.session_state.current_card_index + 1) % len(cards)
             st.session_state.show_answer = False
+            st.session_state.selected_jump_card = None  # Clear jump selection
             st.rerun()
+    
+    # Jump to specific question
+    st.markdown("---")
+    
+    # Build options with current card pre-selected
+    current_card = cards[st.session_state.current_card_index]
+    card_options = [f"ID {card['id']}: {card['question'][:50]}..." for card in cards]
+    current_option = f"ID {current_card['id']}: {current_card['question'][:50]}..."
+    
+    # Find the index of current card in the selectbox options
+    try:
+        default_index = card_options.index(current_option)
+    except ValueError:
+        default_index = 0
+    
+    selected_label = st.selectbox(
+        "Jump to question:", 
+        card_options,
+        index=default_index,
+        key="jump_selectbox"
+    )
+    
+    # Extract ID from selected label
+    selected_id = int(selected_label.split(":")[0].replace("ID ", ""))
+    
+    # Only jump if selection changed from a user action (not just a rerun)
+    if st.session_state.selected_jump_card != selected_id:
+        # Find the index in cards list
+        for idx, card in enumerate(cards):
+            if card['id'] == selected_id:
+                if idx != st.session_state.current_card_index:
+                    st.session_state.current_card_index = idx
+                    st.session_state.show_answer = False
+                    st.session_state.selected_jump_card = selected_id
+                    st.rerun()
+                break
 
 
 def create_flashcard():
@@ -255,20 +310,17 @@ def create_flashcard():
             else:
                 flashcards = load_flashcards()
                 
-                # Handle image upload
-                image_path = None
+                # Handle image upload - encode to base64
+                image_data = None
                 if uploaded_file:
-                    image_filename = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{uploaded_file.name}"
-                    image_path = os.path.join(IMAGES_FOLDER, image_filename)
-                    with open(image_path, 'wb') as f:
-                        f.write(uploaded_file.getbuffer())
+                    image_data = encode_image_to_base64(uploaded_file)
                 
                 # Create new flashcard
                 new_card = {
                     'id': get_next_id(flashcards),
                     'question': question,
                     'answer_text': answer_text,
-                    'answer_image': image_path,
+                    'answer_image': image_data,
                     'total_correct': 0,
                     'total_wrong': 0,
                     'consecutive_correct': 0,
@@ -332,27 +384,19 @@ def edit_flashcard():
                 st.error("Please provide either text answer or image!")
             else:
                 # Handle image changes
-                image_path = selected_card['answer_image']
+                image_data = selected_card['answer_image']
                 
                 if remove_image:
-                    if image_path and os.path.exists(image_path):
-                        os.remove(image_path)
-                    image_path = None
+                    image_data = None
                 
                 if uploaded_file:
-                    # Remove old image if replacing
-                    if image_path and os.path.exists(image_path):
-                        os.remove(image_path)
-                    
-                    image_filename = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{uploaded_file.name}"
-                    image_path = os.path.join(IMAGES_FOLDER, image_filename)
-                    with open(image_path, 'wb') as f:
-                        f.write(uploaded_file.getbuffer())
+                    # Convert new image to base64
+                    image_data = encode_image_to_base64(uploaded_file)
                 
                 # Update card
                 selected_card['question'] = question
                 selected_card['answer_text'] = answer_text
-                selected_card['answer_image'] = image_path
+                selected_card['answer_image'] = image_data
                 
                 # Update in flashcards list
                 for i, card in enumerate(flashcards):
@@ -398,11 +442,7 @@ def delete_flashcard():
     col1, col2, col3 = st.columns([1, 1, 1])
     with col2:
         if st.button("🗑️ Confirm Delete", type="primary", use_container_width=True):
-            # Remove image file if exists
-            if selected_card['answer_image'] and os.path.exists(selected_card['answer_image']):
-                os.remove(selected_card['answer_image'])
-            
-            # Remove from flashcards
+            # Remove from flashcards (images are now stored as base64 in JSON)
             flashcards = [card for card in flashcards if card['id'] != selected_card_id]
             save_flashcards(flashcards)
             
@@ -569,8 +609,42 @@ def main():
 
     st.sidebar.markdown("---")
     
-    # --- NEW BACKUP SECTION START ---
-    st.sidebar.markdown("### Backup Progress")
+    # --- BACKUP & RESTORE SECTION START ---
+    st.sidebar.markdown("### 💾 Backup & Restore")
+    
+    # Upload backup file
+    uploaded_backup = st.sidebar.file_uploader(
+        "📤 Restore from backup:",
+        type=['json'],
+        help="Upload a previously downloaded backup file to restore your progress"
+    )
+    
+    if uploaded_backup is not None:
+        try:
+            # Read and validate the uploaded JSON
+            backup_data = json.load(uploaded_backup)
+            
+            # Validate it's a list of flashcards
+            if isinstance(backup_data, list):
+                # Save the uploaded data
+                with open(FLASHCARDS_JSON, 'w', encoding='utf-8') as f:
+                    json.dump(backup_data, f, indent=2, ensure_ascii=False)
+                
+                st.sidebar.success(f"✅ Restored {len(backup_data)} flashcards!")
+                st.sidebar.info("🔄 Refresh the page to see your restored data.")
+                
+                # Offer a button to reload
+                if st.sidebar.button("🔄 Reload Now", use_container_width=True):
+                    st.rerun()
+            else:
+                st.sidebar.error("❌ Invalid backup file format!")
+        except json.JSONDecodeError:
+            st.sidebar.error("❌ Invalid JSON file!")
+        except Exception as e:
+            st.sidebar.error(f"❌ Error: {str(e)}")
+    
+    # Download backup
+    st.sidebar.markdown("---")
     if os.path.exists(FLASHCARDS_JSON):
         with open(FLASHCARDS_JSON, 'r', encoding='utf-8') as f:
             json_data = f.read()
@@ -582,9 +656,10 @@ def main():
             mime="application/json",
             use_container_width=True
         )
+        st.sidebar.caption("💡 Download regularly to save your progress!")
     else:
         st.sidebar.info("No save data yet.")
-    # --- NEW BACKUP SECTION END ---
+    # --- BACKUP & RESTORE SECTION END ---
     
     st.sidebar.markdown("---")
     st.sidebar.markdown("### About")

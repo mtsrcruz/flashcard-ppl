@@ -1,15 +1,18 @@
 # 🎴 Flashcards Study App
 
-A comprehensive flashcards application built with Streamlit for effective learning with spaced repetition.
+A comprehensive flashcards application built with Streamlit for effective learning with spaced repetition. Designed for both local use and cloud deployment (Streamlit Cloud compatible).
 
-## Features
+## ✨ Key Features
 
 ### 📚 Study Mode
 - Study active or archived flashcards
 - Track correct/wrong answers per card
 - View consecutive correct streak
 - Cards automatically archive after 5 consecutive correct answers
-- Navigate between cards easily
+- **Enhanced Navigation**:
+  - Next/Previous buttons for easy card navigation
+  - Jump to any question via dropdown selector
+  - Progress indicator showing current position
 
 ### ➕ Create Flashcards
 - Add new flashcards with questions
@@ -39,6 +42,13 @@ A comprehensive flashcards application built with Streamlit for effective learni
 - Track overall accuracy percentage
 - See detailed per-card statistics
 - Monitor learning progress
+
+### 💾 Backup & Restore
+- **Download backups**: Export your progress as JSON files
+- **Upload backups**: Restore your data from any device
+- **Cloud-friendly**: Perfect for Streamlit Cloud deployment
+- **Portable**: Sync across multiple devices
+- **Complete data**: Images embedded as base64 in backups
 
 ## Installation
 
@@ -71,9 +81,22 @@ streamlit run flashcards_app.py
 
 ## Data Storage
 
-- **flashcards_data.json**: Stores all flashcard data and statistics
-- **flashcard_images/**: Folder for uploaded images
-- Data persists between sessions
+- **flashcards_data.json**: Stores all flashcard data, statistics, and images (as base64)
+- **Images**: Embedded directly in JSON using base64 encoding
+- **Cloud Compatible**: No external file dependencies - everything in one JSON file
+- **Portable**: Download and upload your complete progress anywhere
+
+### For Cloud Deployment (Streamlit Cloud)
+
+Since Streamlit Cloud has ephemeral storage, use the built-in backup system:
+
+1. **Before closing**: Download your backup from the sidebar
+2. **When reopening**: Upload your backup file to restore progress
+3. **Recommended**: Keep backups in cloud storage (Google Drive, OneDrive, etc.)
+
+### For Local Use
+
+Data automatically persists between sessions in `flashcards_data.json`.
 
 ## How It Works
 
@@ -97,6 +120,42 @@ streamlit run flashcards_app.py
 - Review archived cards periodically
 - Reset archived cards when you want to refresh your knowledge
 - Use images for visual concepts or diagrams
+- **For cloud deployment**: Download backups regularly to preserve progress
+
+## Cloud Deployment
+
+### Deploying to Streamlit Cloud
+
+1. Push your code to GitHub
+2. Connect your repository to Streamlit Cloud
+3. Deploy the app
+4. Use the backup/restore feature to manage your data across sessions
+
+### Important Notes for Cloud Use
+
+- Storage is ephemeral (resets on app restart)
+- Always download backups before closing
+- Upload your backup when you return
+- Images are stored as base64 in JSON (no separate files needed)
+
+## Workflow Example
+
+### First Time Setup
+1. Create your flashcards locally or in the cloud app
+2. Study and build your progress
+3. Download backup before closing
+
+### Daily Use (Cloud)
+1. Open the app
+2. Upload your latest backup file
+3. Study your flashcards
+4. Download updated backup before closing
+5. Store backup in your preferred cloud storage
+
+### Daily Use (Local)
+1. Run `streamlit run flashcards_app.py`
+2. Study - progress saves automatically
+3. Optional: Download backups for redundancy
 
 ## Initial Data
 
