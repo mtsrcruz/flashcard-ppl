@@ -652,7 +652,7 @@ def main():
         st.sidebar.download_button(
             label="💾 Download Backup",
             data=json_data,
-            file_name=f"flashcards_backup_{datetime.now().strftime('%Y%m%d_%H%M')}.json",
+            file_name=f"flashcards_data.json",
             mime="application/json",
             use_container_width=True
         )
