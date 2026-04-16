@@ -5,6 +5,7 @@ import os
 from datetime import datetime
 from pathlib import Path
 import base64
+import requests
 
 # File paths
 FLASHCARDS_JSON = "flashcards_data.json"
@@ -54,6 +55,57 @@ def save_flashcards(flashcards):
     """Save flashcards to JSON file."""
     with open(FLASHCARDS_JSON, 'w', encoding='utf-8') as f:
         json.dump(flashcards, f, indent=2, ensure_ascii=False)
+
+
+def save_to_github(token, repo, file_path, branch='main'):
+    """Save flashcards JSON to GitHub repository."""
+    try:
+        # GitHub API endpoint
+        api_url = f"https://api.github.com/repos/{repo}/contents/{file_path}"
+        
+        # Read the current JSON file
+        with open(FLASHCARDS_JSON, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # Encode content to base64
+        content_base64 = base64.b64encode(content.encode('utf-8')).decode('utf-8')
+        
+        # Headers for authentication
+        headers = {
+            'Authorization': f'token {token}',
+            'Accept': 'application/vnd.github.v3+json'
+        }
+        
+        # First, try to get the file's current SHA (needed for updates)
+        response = requests.get(api_url, headers=headers, params={'ref': branch}, timeout=30)
+        
+        # Prepare the data for GitHub API
+        data = {
+            'message': f'Update flashcards data - {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}',
+            'content': content_base64,
+            'branch': branch
+        }
+        
+        # If file exists, add the SHA for update
+        if response.status_code == 200:
+            data['sha'] = response.json()['sha']
+        
+        # Create or update the file with extended timeout
+        response = requests.put(api_url, headers=headers, json=data, timeout=30)
+        
+        if response.status_code in [200, 201]:
+            return True, "Successfully saved to GitHub!"
+        else:
+            error_msg = response.json().get('message', 'Unknown error')
+            # Provide helpful hints for common errors
+            if response.status_code == 403:
+                error_msg += "\n\nTip: Check if your repository has branch protection rules or rulesets enabled. Try:\n• Using a different branch (e.g., 'data' or 'backup')\n• Disabling repository rulesets temporarily\n• Checking your token has 'workflow' scope if needed"
+            return False, f"GitHub API error: {response.status_code} - {error_msg}"
+            
+    except requests.exceptions.Timeout:
+        return False, "Request timeout. GitHub API took too long to respond. Try again or check your internet connection."
+    except Exception as e:
+        return False, f"Error: {str(e)}"
 
 
 def get_next_id(flashcards):
@@ -643,20 +695,73 @@ def main():
         except Exception as e:
             st.sidebar.error(f"❌ Error: {str(e)}")
     
-    # Download backup
+    # Save to GitHub
     st.sidebar.markdown("---")
     if os.path.exists(FLASHCARDS_JSON):
-        with open(FLASHCARDS_JSON, 'r', encoding='utf-8') as f:
-            json_data = f.read()
-            
-        st.sidebar.download_button(
-            label="💾 Download Backup",
-            data=json_data,
-            file_name=f"flashcards_data.json",
-            mime="application/json",
-            use_container_width=True
+        st.sidebar.markdown("### 🐙 Save to GitHub")
+        
+        # GitHub configuration inputs
+        github_token = st.sidebar.text_input(
+            "GitHub Token:",
+            type="password",
+            help="Personal Access Token with repo permissions",
+            key="github_token"
         )
-        st.sidebar.caption("💡 Download regularly to save your progress!")
+        
+        github_repo = st.sidebar.text_input(
+            "Repository (owner/repo):",
+            placeholder="mtsrcruz/flashcard-ppl",
+            help="Example: johndoe/my-flashcards",
+            key="github_repo"
+        )
+        
+        github_file_path = st.sidebar.text_input(
+            "File path in repo:",
+            value="flashcards_data.json",
+            help="Path where to save the file in your repository",
+            key="github_file_path"
+        )
+        
+        github_branch = st.sidebar.text_input(
+            "Branch:",
+            value="data",
+            help="Branch to commit to",
+            key="github_branch"
+        )
+        
+        # Save to GitHub button
+        if st.sidebar.button("💾 Save to GitHub", use_container_width=True):
+            if not github_token:
+                st.sidebar.error("❌ Please provide a GitHub token!")
+            elif not github_repo:
+                st.sidebar.error("❌ Please provide a repository name!")
+            else:
+                with st.spinner("Saving to GitHub..."):
+                    success, message = save_to_github(
+                        github_token,
+                        github_repo,
+                        github_file_path,
+                        github_branch
+                    )
+                    if success:
+                        st.sidebar.success(f"✅ {message}")
+                    else:
+                        st.sidebar.error(f"❌ {message}")
+        
+        st.sidebar.caption("💡 Your data will be saved to your GitHub repository!")
+        
+        # Optional: Keep download as backup
+        with st.sidebar.expander("📥 Or download backup locally"):
+            with open(FLASHCARDS_JSON, 'r', encoding='utf-8') as f:
+                json_data = f.read()
+                
+            st.download_button(
+                label="💾 Download Backup",
+                data=json_data,
+                file_name=f"flashcards_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
+                mime="application/json",
+                use_container_width=True
+            )
     else:
         st.sidebar.info("No save data yet.")
     # --- BACKUP & RESTORE SECTION END ---
