@@ -1,0 +1,5 @@
+streamlit>=1.28.0
+pandas>=2.0.0
+supabase>=2.4.0
+
+# Note: base64 and json modules are part of Python standard library (no installation needed)
