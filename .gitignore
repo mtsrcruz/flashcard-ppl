@@ -1,0 +1,13 @@
+# Secrets — never commit
+.streamlit/secrets.toml
+
+# Local data (now lives in Supabase)
+flashcards_data.json
+session_state.json
+flashcard_images/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+env/

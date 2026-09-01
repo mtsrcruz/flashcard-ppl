@@ -2,58 +2,84 @@ import streamlit as st
 import pandas as pd
 import json
 import os
+import uuid
 from datetime import datetime
-from pathlib import Path
-import base64
+from supabase import create_client, Client
 
-# File paths
-FLASHCARDS_JSON = "flashcards_data.json"
-IMAGES_FOLDER = "flashcard_images"
+# Supabase storage
+STORAGE_BUCKET = "flashcard-images"
+SESSION_STATE_JSON = "session_state.json"
 
-# Ensure images folder exists
-Path(IMAGES_FOLDER).mkdir(exist_ok=True)
+
+@st.cache_resource
+def get_supabase() -> Client:
+    """Create a cached Supabase client from Streamlit secrets."""
+    url = st.secrets["SUPABASE_URL"]
+    key = st.secrets["SUPABASE_KEY"]
+    return create_client(url, key)
+
+def save_session_state():
+    """Save current session state (card index and study mode) to file."""
+    session_data = {
+        'current_card_index': st.session_state.current_card_index,
+        'study_mode': st.session_state.study_mode
+    }
+    with open(SESSION_STATE_JSON, 'w', encoding='utf-8') as f:
+        json.dump(session_data, f, indent=2)
+
+def load_session_state():
+    """Load the last saved session state (card index and study mode)."""
+    if os.path.exists(SESSION_STATE_JSON):
+        try:
+            with open(SESSION_STATE_JSON, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except (json.JSONDecodeError, IOError):
+            return None
+    return None
 
 # Initialize session state
 if 'initialized' not in st.session_state:
     st.session_state.initialized = True
-    st.session_state.current_card_index = 0
+    
+    # Load saved session state or use defaults
+    saved_state = load_session_state()
+    if saved_state:
+        st.session_state.current_card_index = saved_state.get('current_card_index', 0)
+        st.session_state.study_mode = saved_state.get('study_mode', 'active')
+    else:
+        st.session_state.current_card_index = 0
+        st.session_state.study_mode = 'active'  # 'active' or 'archived'
+    
     st.session_state.show_answer = False
-    st.session_state.study_mode = 'active'  # 'active' or 'archived'
     st.session_state.selected_jump_card = None  # Track selectbox selection
     
 
 def load_flashcards():
-    """Load flashcards from JSON file, or import from CSV if JSON doesn't exist."""
-    if os.path.exists(FLASHCARDS_JSON):
-        with open(FLASHCARDS_JSON, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    else:
-        # Import from CSV for first time
-        if os.path.exists('ppl_flashcards.csv'):
-            df = pd.read_csv('ppl_flashcards.csv')
-            flashcards = []
-            for idx, row in df.iterrows():
-                flashcards.append({
-                    'id': idx,
-                    'question': row['Question / Prompt'],
-                    'answer_text': row['Answer / Notes'],
-                    'answer_image': None,
-                    'total_correct': 0,
-                    'total_wrong': 0,
-                    'consecutive_correct': 0,
-                    'archived': False,
-                    'created_date': datetime.now().isoformat(),
-                    'history': []  # List of study sessions with results
-                })
-            save_flashcards(flashcards)
-            return flashcards
-        return []
+    """Load all flashcards from Supabase, ordered by id."""
+    resp = get_supabase().table("flashcards").select("*").order("id").execute()
+    cards = resp.data or []
+    for card in cards:
+        # jsonb comes back as a list already; guard against nulls
+        if card.get("history") is None:
+            card["history"] = []
+    return cards
 
 
 def save_flashcards(flashcards):
-    """Save flashcards to JSON file."""
-    with open(FLASHCARDS_JSON, 'w', encoding='utf-8') as f:
-        json.dump(flashcards, f, indent=2, ensure_ascii=False)
+    """Upsert all flashcards to Supabase (payload is small — images live in Storage)."""
+    if not flashcards:
+        return
+    get_supabase().table("flashcards").upsert(flashcards).execute()
+
+
+def save_card(card):
+    """Upsert a single flashcard (cheap, used after answering)."""
+    get_supabase().table("flashcards").upsert(card).execute()
+
+
+def delete_card(card_id):
+    """Delete a single flashcard row from Supabase."""
+    get_supabase().table("flashcards").delete().eq("id", card_id).execute()
 
 
 def get_next_id(flashcards):
@@ -73,36 +99,33 @@ def get_archived_cards(flashcards):
     return [card for card in flashcards if card['archived']]
 
 
-def encode_image_to_base64(uploaded_file):
-    """Convert uploaded file to base64 string."""
+def upload_image(uploaded_file):
+    """Upload an image to Supabase Storage and return its public URL."""
     if uploaded_file is None:
         return None
-    
-    # Read the file bytes
-    file_bytes = uploaded_file.getvalue()
-    
-    # Encode to base64
-    encoded = base64.b64encode(file_bytes).decode('utf-8')
-    
-    # Determine image type from file extension
+
     file_ext = uploaded_file.name.split('.')[-1].lower()
-    mime_type = f"image/{file_ext}" if file_ext in ['png', 'jpg', 'jpeg', 'gif'] else "image/png"
-    
-    # Return as data URI
-    return f"data:{mime_type};base64,{encoded}"
+    if file_ext not in ['png', 'jpg', 'jpeg', 'gif']:
+        file_ext = 'png'
+    mime_type = f"image/{file_ext}"
+    object_path = f"{uuid.uuid4().hex}.{file_ext}"
+
+    storage = get_supabase().storage.from_(STORAGE_BUCKET)
+    storage.upload(
+        object_path,
+        uploaded_file.getvalue(),
+        {"content-type": mime_type},
+    )
+    return storage.get_public_url(object_path)
 
 
 def display_image(image_data):
-    """Display an image from base64 string or file path (for backward compatibility)."""
+    """Display an image from a URL or a legacy base64 data URI."""
     if not image_data:
         return
-    
-    # Check if it's a base64 data URI
-    if isinstance(image_data, str) and image_data.startswith('data:image'):
-        # Extract base64 part
-        st.image(image_data, use_container_width=True)
-    # Backward compatibility: check if it's a file path
-    elif isinstance(image_data, str) and os.path.exists(image_data):
+    if isinstance(image_data, str) and (
+        image_data.startswith('http') or image_data.startswith('data:image')
+    ):
         st.image(image_data, use_container_width=True)
 
 
@@ -114,7 +137,14 @@ def study_mode():
     
     # Mode selector
     mode = st.radio("Study mode:", ["Active Cards", "Archived Cards"], horizontal=True)
-    st.session_state.study_mode = 'active' if mode == "Active Cards" else 'archived'
+    new_mode = 'active' if mode == "Active Cards" else 'archived'
+    
+    # If mode changed, reset to first card of new mode
+    if new_mode != st.session_state.study_mode:
+        st.session_state.study_mode = new_mode
+        st.session_state.current_card_index = 0
+    else:
+        st.session_state.study_mode = new_mode
     
     if st.session_state.study_mode == 'active':
         cards = get_active_cards(flashcards)
@@ -182,18 +212,13 @@ def study_mode():
                     'date': datetime.now().isoformat(),
                     'result': 'wrong'
                 })
-                
-                # Update flashcards
-                for i, card in enumerate(flashcards):
-                    if card['id'] == current_card['id']:
-                        flashcards[i] = current_card
-                        break
-                
-                save_flashcards(flashcards)
-                
+
+                save_card(current_card)
+
                 # Move to next card
                 st.session_state.current_card_index = (st.session_state.current_card_index + 1) % len(cards)
                 st.session_state.show_answer = False
+                save_session_state()
                 st.rerun()
         
         with col2:
@@ -210,14 +235,8 @@ def study_mode():
                 if current_card['consecutive_correct'] >= 5 and not current_card['archived']:
                     current_card['archived'] = True
                     st.success("🎉 Card archived! You got it right 5 times in a row!")
-                
-                # Update flashcards
-                for i, card in enumerate(flashcards):
-                    if card['id'] == current_card['id']:
-                        flashcards[i] = current_card
-                        break
-                
-                save_flashcards(flashcards)
+
+                save_card(current_card)
                 
                 # Move to next card (or wrap around)
                 next_index = st.session_state.current_card_index + 1
@@ -231,6 +250,7 @@ def study_mode():
                 
                 st.session_state.current_card_index = next_index
                 st.session_state.show_answer = False
+                save_session_state()
                 st.rerun()
     
 
@@ -243,12 +263,14 @@ def study_mode():
             st.session_state.current_card_index = (st.session_state.current_card_index - 1) % len(cards)
             st.session_state.show_answer = False
             st.session_state.selected_jump_card = None  # Clear jump selection
+            save_session_state()
             st.rerun()
     with col3:
         if st.button("Next ➡️"):
             st.session_state.current_card_index = (st.session_state.current_card_index + 1) % len(cards)
             st.session_state.show_answer = False
             st.session_state.selected_jump_card = None  # Clear jump selection
+            save_session_state()
             st.rerun()
     
     # Jump to specific question
@@ -284,6 +306,7 @@ def study_mode():
                     st.session_state.current_card_index = idx
                     st.session_state.show_answer = False
                     st.session_state.selected_jump_card = selected_id
+                    save_session_state()
                     st.rerun()
                 break
 
@@ -310,10 +333,10 @@ def create_flashcard():
             else:
                 flashcards = load_flashcards()
                 
-                # Handle image upload - encode to base64
+                # Handle image upload - store in Supabase Storage
                 image_data = None
                 if uploaded_file:
-                    image_data = encode_image_to_base64(uploaded_file)
+                    image_data = upload_image(uploaded_file)
                 
                 # Create new flashcard
                 new_card = {
@@ -390,8 +413,8 @@ def edit_flashcard():
                     image_data = None
                 
                 if uploaded_file:
-                    # Convert new image to base64
-                    image_data = encode_image_to_base64(uploaded_file)
+                    # Upload new image to Supabase Storage
+                    image_data = upload_image(uploaded_file)
                 
                 # Update card
                 selected_card['question'] = question
@@ -442,9 +465,8 @@ def delete_flashcard():
     col1, col2, col3 = st.columns([1, 1, 1])
     with col2:
         if st.button("🗑️ Confirm Delete", type="primary", use_container_width=True):
-            # Remove from flashcards (images are now stored as base64 in JSON)
-            flashcards = [card for card in flashcards if card['id'] != selected_card_id]
-            save_flashcards(flashcards)
+            # Remove the row from Supabase (images stay in Storage; harmless)
+            delete_card(selected_card_id)
             
             st.success("✅ Flashcard deleted successfully!")
             st.rerun()
@@ -580,13 +602,13 @@ def statistics():
 def main():
     """Main application."""
     st.set_page_config(
-        page_title="Flashcards App",
+        page_title="PPL Flashcards",
         page_icon="🎴",
         layout="wide"
     )
     
-    st.title("🎴 Flashcards Study App")
-    st.markdown("Learn effectively with spaced repetition!")
+    st.title("🎴 PPL Flashcards")
+    st.markdown("Learning to fly high!")
     
     # Sidebar navigation
     st.sidebar.title("Navigation")
@@ -610,30 +632,23 @@ def main():
     st.sidebar.markdown("---")
     
     # --- BACKUP & RESTORE SECTION START ---
+    # Data now lives in Supabase (synced across devices). These are optional
+    # export/import helpers for extra safety.
     st.sidebar.markdown("### 💾 Backup & Restore")
     
-    # Upload backup file
+    # Upload backup file -> upsert into Supabase
     uploaded_backup = st.sidebar.file_uploader(
         "📤 Restore from backup:",
         type=['json'],
-        help="Upload a previously downloaded backup file to restore your progress"
+        help="Upload a previously downloaded backup file to merge it back into the cloud database"
     )
     
     if uploaded_backup is not None:
         try:
-            # Read and validate the uploaded JSON
             backup_data = json.load(uploaded_backup)
-            
-            # Validate it's a list of flashcards
             if isinstance(backup_data, list):
-                # Save the uploaded data
-                with open(FLASHCARDS_JSON, 'w', encoding='utf-8') as f:
-                    json.dump(backup_data, f, indent=2, ensure_ascii=False)
-                
-                st.sidebar.success(f"✅ Restored {len(backup_data)} flashcards!")
-                st.sidebar.info("🔄 Refresh the page to see your restored data.")
-                
-                # Offer a button to reload
+                save_flashcards(backup_data)
+                st.sidebar.success(f"✅ Restored {len(backup_data)} flashcards to the cloud!")
                 if st.sidebar.button("🔄 Reload Now", use_container_width=True):
                     st.rerun()
             else:
@@ -643,20 +658,18 @@ def main():
         except Exception as e:
             st.sidebar.error(f"❌ Error: {str(e)}")
     
-    # Download backup
+    # Download backup -> current cloud data
     st.sidebar.markdown("---")
-    if os.path.exists(FLASHCARDS_JSON):
-        with open(FLASHCARDS_JSON, 'r', encoding='utf-8') as f:
-            json_data = f.read()
-            
+    if flashcards:
+        json_data = json.dumps(flashcards, indent=2, ensure_ascii=False)
         st.sidebar.download_button(
             label="💾 Download Backup",
             data=json_data,
-            file_name=f"flashcards_data.json",
+            file_name="flashcards_data.json",
             mime="application/json",
             use_container_width=True
         )
-        st.sidebar.caption("💡 Download regularly to save your progress!")
+        st.sidebar.caption("💡 Your data auto-saves to the cloud — this is just an extra copy.")
     else:
         st.sidebar.info("No save data yet.")
     # --- BACKUP & RESTORE SECTION END ---
