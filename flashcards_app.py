@@ -8,7 +8,6 @@ from supabase import create_client, Client
 
 # Supabase storage
 STORAGE_BUCKET = "flashcard-images"
-SESSION_STATE_JSON = "session_state.json"
 
 
 @st.cache_resource
@@ -19,22 +18,18 @@ def get_supabase() -> Client:
     return create_client(url, key)
 
 def save_session_state():
-    """Save current session state (card index and study mode) to file."""
-    session_data = {
+    """Save current session state (card index and study mode) to Supabase."""
+    get_supabase().table("app_state").upsert({
+        'id': 1,
         'current_card_index': st.session_state.current_card_index,
         'study_mode': st.session_state.study_mode
-    }
-    with open(SESSION_STATE_JSON, 'w', encoding='utf-8') as f:
-        json.dump(session_data, f, indent=2)
+    }).execute()
 
 def load_session_state():
-    """Load the last saved session state (card index and study mode)."""
-    if os.path.exists(SESSION_STATE_JSON):
-        try:
-            with open(SESSION_STATE_JSON, 'r', encoding='utf-8') as f:
-                return json.load(f)
-        except (json.JSONDecodeError, IOError):
-            return None
+    """Load the last saved session state (card index and study mode) from Supabase."""
+    resp = get_supabase().table("app_state").select("*").eq("id", 1).execute()
+    if resp.data:
+        return resp.data[0]
     return None
 
 # Initialize session state
