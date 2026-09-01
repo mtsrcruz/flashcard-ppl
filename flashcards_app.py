@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import json
-import os
 import uuid
 from datetime import datetime
 from supabase import create_client, Client
@@ -19,15 +18,22 @@ def get_supabase() -> Client:
 
 def save_session_state():
     """Save current session state (card index and study mode) to Supabase."""
-    get_supabase().table("app_state").upsert({
-        'id': 1,
-        'current_card_index': st.session_state.current_card_index,
-        'study_mode': st.session_state.study_mode
-    }).execute()
+    # Non-critical (just the resume position) — fail silently if offline.
+    try:
+        get_supabase().table("app_state").upsert({
+            'id': 1,
+            'current_card_index': st.session_state.current_card_index,
+            'study_mode': st.session_state.study_mode
+        }).execute()
+    except Exception:
+        pass
 
 def load_session_state():
     """Load the last saved session state (card index and study mode) from Supabase."""
-    resp = get_supabase().table("app_state").select("*").eq("id", 1).execute()
+    try:
+        resp = get_supabase().table("app_state").select("*").eq("id", 1).execute()
+    except Exception:
+        return None
     if resp.data:
         return resp.data[0]
     return None
@@ -51,7 +57,11 @@ if 'initialized' not in st.session_state:
 
 def load_flashcards():
     """Load all flashcards from Supabase, ordered by id."""
-    resp = get_supabase().table("flashcards").select("*").order("id").execute()
+    try:
+        resp = get_supabase().table("flashcards").select("*").order("id").execute()
+    except Exception as e:
+        st.error(f"⚠️ Couldn't load flashcards — check your connection. ({e})")
+        st.stop()
     cards = resp.data or []
     for card in cards:
         # jsonb comes back as a list already; guard against nulls
@@ -64,24 +74,36 @@ def save_flashcards(flashcards):
     """Upsert all flashcards to Supabase (payload is small — images live in Storage)."""
     if not flashcards:
         return
-    get_supabase().table("flashcards").upsert(flashcards).execute()
+    try:
+        get_supabase().table("flashcards").upsert(flashcards).execute()
+    except Exception as e:
+        st.error(f"⚠️ Couldn't save — check your connection. ({e})")
 
 
 def save_card(card):
     """Upsert a single flashcard (cheap, used after answering)."""
-    get_supabase().table("flashcards").upsert(card).execute()
+    try:
+        get_supabase().table("flashcards").upsert(card).execute()
+    except Exception as e:
+        st.error(f"⚠️ Couldn't save — check your connection. ({e})")
+
+
+def create_card(card):
+    """Insert a brand-new flashcard; id is auto-assigned by the database."""
+    try:
+        get_supabase().table("flashcards").insert(card).execute()
+        return True
+    except Exception as e:
+        st.error(f"⚠️ Couldn't create the flashcard — check your connection. ({e})")
+        return False
 
 
 def delete_card(card_id):
     """Delete a single flashcard row from Supabase."""
-    get_supabase().table("flashcards").delete().eq("id", card_id).execute()
-
-
-def get_next_id(flashcards):
-    """Get the next available ID."""
-    if not flashcards:
-        return 0
-    return max(card['id'] for card in flashcards) + 1
+    try:
+        get_supabase().table("flashcards").delete().eq("id", card_id).execute()
+    except Exception as e:
+        st.error(f"⚠️ Couldn't delete — check your connection. ({e})")
 
 
 def get_active_cards(flashcards):
@@ -95,7 +117,7 @@ def get_archived_cards(flashcards):
 
 
 def upload_image(uploaded_file):
-    """Upload an image to Supabase Storage and return its public URL."""
+    """Upload an image to Supabase Storage and return its public URL (or None on failure)."""
     if uploaded_file is None:
         return None
 
@@ -105,13 +127,17 @@ def upload_image(uploaded_file):
     mime_type = f"image/{file_ext}"
     object_path = f"{uuid.uuid4().hex}.{file_ext}"
 
-    storage = get_supabase().storage.from_(STORAGE_BUCKET)
-    storage.upload(
-        object_path,
-        uploaded_file.getvalue(),
-        {"content-type": mime_type},
-    )
-    return storage.get_public_url(object_path)
+    try:
+        storage = get_supabase().storage.from_(STORAGE_BUCKET)
+        storage.upload(
+            object_path,
+            uploaded_file.getvalue(),
+            {"content-type": mime_type},
+        )
+        return storage.get_public_url(object_path)
+    except Exception as e:
+        st.error(f"⚠️ Image upload failed — check your connection. ({e})")
+        return None
 
 
 def display_image(image_data):
@@ -310,7 +336,7 @@ def create_flashcard():
     """Create new flashcard interface."""
     st.header("➕ Create New Flashcard")
     
-    with st.form("create_flashcard_form"):
+    with st.form("create_flashcard_form", clear_on_submit=True):
         question = st.text_area("Question / Prompt:", height=100)
         
         answer_text = st.text_area("Answer (Text):", height=150)
@@ -326,16 +352,16 @@ def create_flashcard():
             elif not answer_text and not uploaded_file:
                 st.error("Please provide either text answer or image!")
             else:
-                flashcards = load_flashcards()
-                
                 # Handle image upload - store in Supabase Storage
                 image_data = None
                 if uploaded_file:
                     image_data = upload_image(uploaded_file)
-                
-                # Create new flashcard
+                    if image_data is None:
+                        st.error("Image upload failed — please try again.")
+                        return
+
+                # id is auto-assigned by the database (identity column)
                 new_card = {
-                    'id': get_next_id(flashcards),
                     'question': question,
                     'answer_text': answer_text,
                     'answer_image': image_data,
@@ -346,12 +372,11 @@ def create_flashcard():
                     'created_date': datetime.now().isoformat(),
                     'history': []
                 }
-                
-                flashcards.append(new_card)
-                save_flashcards(flashcards)
-                
-                st.success("✅ Flashcard created successfully!")
-                st.balloons()
+
+                if create_card(new_card):
+                    st.success("✈️ Flashcard created — cleared for takeoff!")
+                    st.toast("🛫 New card added to your logbook!")
+                    st.rerun()
 
 
 def edit_flashcard():
@@ -409,7 +434,11 @@ def edit_flashcard():
                 
                 if uploaded_file:
                     # Upload new image to Supabase Storage
-                    image_data = upload_image(uploaded_file)
+                    new_image = upload_image(uploaded_file)
+                    if new_image:
+                        image_data = new_image
+                    else:
+                        st.warning("⚠️ Image upload failed — keeping the previous image.")
                 
                 # Update card
                 selected_card['question'] = question
@@ -424,6 +453,8 @@ def edit_flashcard():
                 
                 save_flashcards(flashcards)
                 st.success("✅ Flashcard updated successfully!")
+        elif cancel:
+            st.info("Changes discarded.")
 
 
 def delete_flashcard():
@@ -592,6 +623,26 @@ def statistics():
     
     df = pd.DataFrame(stats_data)
     st.dataframe(df, use_container_width=True, hide_index=True)
+    
+    # Reset all statistics (keeps the cards, wipes progress)
+    st.markdown("---")
+    with st.expander("⚠️ Reset All Statistics"):
+        st.warning(
+            "This resets **Correct/Wrong counts, streaks, and history** for every card back to zero, "
+            "and unarchives any archived cards. Your questions, answers, and images are kept."
+        )
+        confirm_reset = st.checkbox("I understand, reset all statistics")
+        if st.button("🔄 Reset All Statistics", type="primary", disabled=not confirm_reset):
+            for card in flashcards:
+                card['total_correct'] = 0
+                card['total_wrong'] = 0
+                card['consecutive_correct'] = 0
+                card['archived'] = False
+                card['history'] = []
+            
+            save_flashcards(flashcards)
+            st.success("✅ All statistics reset!")
+            st.rerun()
 
 
 def main():
