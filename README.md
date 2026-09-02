@@ -54,7 +54,7 @@ A comprehensive flashcards application built with Streamlit for effective learni
 
 1. Install required packages:
 ```bash
-pip install -r flashcards_requirements.txt
+pip install -r requirements.txt
 ```
 
 Or install individually:

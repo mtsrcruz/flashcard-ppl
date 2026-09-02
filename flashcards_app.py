@@ -152,13 +152,13 @@ def display_image(image_data):
 
 def study_mode():
     """Study mode interface."""
-    st.header("📚 Study Flashcards")
+    st.header("🧭 Study Flashcards")
     
     flashcards = load_flashcards()
     
     # Mode selector
-    mode = st.radio("Study mode:", ["Active Cards", "Archived Cards"], horizontal=True)
-    new_mode = 'active' if mode == "Active Cards" else 'archived'
+    mode = st.radio("Study mode:", ["🛫 Active Cards", "🛬 Archived Cards"], horizontal=True)
+    new_mode = 'active' if mode == "🛫 Active Cards" else 'archived'
     
     # If mode changed, reset to first card of new mode
     if new_mode != st.session_state.study_mode:
@@ -255,7 +255,7 @@ def study_mode():
                 # Archive if 5 consecutive correct
                 if current_card['consecutive_correct'] >= 5 and not current_card['archived']:
                     current_card['archived'] = True
-                    st.success("🎉 Card archived! You got it right 5 times in a row!")
+                    st.success("🛬 Nice landing! Card archived after 5 correct answers in a row!")
 
                 save_card(current_card)
                 
@@ -267,7 +267,7 @@ def study_mode():
                         # Reload cards to check if any are left
                         remaining_cards = get_active_cards(load_flashcards())
                         if not remaining_cards:
-                            st.success("🎊 Congratulations! You've archived all active flashcards!")
+                            st.success("🎉 Mission complete! All cards archived — you're cleared for solo flight!")
                 
                 st.session_state.current_card_index = next_index
                 st.session_state.show_answer = False
@@ -334,7 +334,7 @@ def study_mode():
 
 def create_flashcard():
     """Create new flashcard interface."""
-    st.header("➕ Create New Flashcard")
+    st.header("✈️ Create New Flashcard")
     
     with st.form("create_flashcard_form", clear_on_submit=True):
         question = st.text_area("Question / Prompt:", height=100)
@@ -381,7 +381,7 @@ def create_flashcard():
 
 def edit_flashcard():
     """Edit existing flashcard interface."""
-    st.header("✏️ Edit Flashcard")
+    st.header("🛠️ Edit Flashcard")
     
     flashcards = load_flashcards()
     
@@ -500,7 +500,7 @@ def delete_flashcard():
 
 def manage_archived():
     """Manage archived flashcards."""
-    st.header("📦 Manage Archived Flashcards")
+    st.header("🛬 Manage Archived Flashcards")
     
     flashcards = load_flashcards()
     archived_cards = get_archived_cards(flashcards)
@@ -567,7 +567,7 @@ def manage_archived():
 
 def statistics():
     """Display statistics dashboard."""
-    st.header("📊 Statistics")
+    st.header("� Statistics")
     
     flashcards = load_flashcards()
     
@@ -649,19 +649,60 @@ def main():
     """Main application."""
     st.set_page_config(
         page_title="PPL Flashcards",
-        page_icon="🎴",
+        page_icon="✈️",
         layout="wide"
     )
     
-    st.title("🎴 PPL Flashcards")
-    st.markdown("Learning to fly high!")
+    st.markdown(
+        """
+        <style>
+        .ppl-sky-banner {
+            background: #FFFFFF;
+            border: 1px solid #D6E9F8;
+            border-top: 6px solid #4FA8E0;
+            border-radius: 10px;
+            padding: 16px 24px;
+            margin-bottom: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        .ppl-sky-banner .cloud {
+            position: absolute;
+            top: 14px;
+            font-size: 22px;
+            opacity: 0.3;
+        }
+        .ppl-sky-banner .cloud-1 { right: 90px; }
+        .ppl-sky-banner .cloud-2 { right: 50px; top: 32px; }
+        .ppl-sky-banner h1 {
+            color: #08324D;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+        .ppl-sky-banner p {
+            color: #33495C;
+            margin: 4px 0 0 0;
+            position: relative;
+            z-index: 1;
+        }
+        </style>
+        <div class="ppl-sky-banner">
+            <span class="cloud cloud-1">☁️</span>
+            <span class="cloud cloud-2">☁️</span>
+            <h1>🎴 PPL Flashcards</h1>
+            <p>Learning to fly high! Every card is another mile in your logbook.</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
     
     # Sidebar navigation
-    st.sidebar.title("Navigation")
+    st.sidebar.title("🧭 Flight Plan")
     
     menu = st.sidebar.radio(
         "Choose an option:",
-        ["📚 Study", "➕ Create", "✏️ Edit", "🗑️ Delete", "📦 Archived", "📊 Statistics"]
+        ["🧭 Study", "✈️ Create", "🛠️ Edit", "🗑️ Delete", "🛬 Archived", "📡 Statistics"]
     )
     
     st.sidebar.markdown("---")
@@ -671,9 +712,9 @@ def main():
     active_count = len(get_active_cards(flashcards))
     archived_count = len(get_archived_cards(flashcards))
     
-    st.sidebar.markdown("### Quick Stats")
-    st.sidebar.metric("Active Cards", active_count)
-    st.sidebar.metric("Archived Cards", archived_count)
+    st.sidebar.markdown("### 🪶 Flight Log")
+    st.sidebar.metric("🛫 Active Cards", active_count)
+    st.sidebar.metric("🛬 Archived Cards", archived_count)
 
     st.sidebar.markdown("---")
     
@@ -728,17 +769,17 @@ def main():
     )
     
     # Route to appropriate page
-    if menu == "📚 Study":
+    if menu == "🧭 Study":
         study_mode()
-    elif menu == "➕ Create":
+    elif menu == "✈️ Create":
         create_flashcard()
-    elif menu == "✏️ Edit":
+    elif menu == "🛠️ Edit":
         edit_flashcard()
     elif menu == "🗑️ Delete":
         delete_flashcard()
-    elif menu == "📦 Archived":
+    elif menu == "🛬 Archived":
         manage_archived()
-    elif menu == "📊 Statistics":
+    elif menu == "📡 Statistics":
         statistics()
 
 
